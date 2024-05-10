@@ -1,6 +1,8 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Dealership {
@@ -43,10 +45,39 @@ public class Dealership {
         this.phone = phone;
     }
 
-    //methods
-    public List<Vehicle> getVehiclesByPrice(double min, double max){
-        throw new UnsupportedOperationException();
+    public List<Vehicle> getInventory() {
+        return inventory;
     }
+
+    public void setInventory(List<Vehicle> inventory) {
+        this.inventory = inventory;
+    }
+
+    //methods
+    public List<Vehicle> getVehiclesByPrice(double min, double max) {
+        // Sort the inventory list by price (ascending order)
+        Collections.sort(inventory, new Comparator<Vehicle>() {
+            @Override
+            public int compare(Vehicle v1, Vehicle v2) {
+                return Double.compare(v1.getPrice(), v2.getPrice());
+            }
+        });
+
+        // Initialize the list to store vehicles within the price range
+        List<Vehicle> vehiclesByPrice = new ArrayList<>();
+
+        // Iterate through the sorted inventory list
+        for (Vehicle vehicle : inventory) {
+            double price = vehicle.getPrice();
+            if (price >= min && price <= max) {
+                // Add the vehicle to the list if its price falls within the range
+                vehiclesByPrice.add(vehicle);
+            }
+        }
+
+        return vehiclesByPrice;
+    }
+
     public List<Vehicle> getVehiclesByMakeModel(String make,String model){
         throw new UnsupportedOperationException();
     }
