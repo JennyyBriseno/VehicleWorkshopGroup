@@ -68,7 +68,7 @@ public class Dealership {
         }
 
         // Sort the inventory list by price (ascending order)
-        Collections.sort(inventory, new Comparator<Vehicle>() {
+        Collections.sort(vehiclesByPrice, new Comparator<Vehicle>() {
             @Override
             public int compare(Vehicle v1, Vehicle v2) {
                 return Double.compare(v1.getPrice(), v2.getPrice());
@@ -78,11 +78,34 @@ public class Dealership {
         return vehiclesByPrice;
     }
 
-    public List<Vehicle> getVehiclesByMakeModel(String make,String model){
-        throw new UnsupportedOperationException();
+    public List<Vehicle> getVehiclesByMakeModel(String make, String model) {
+        // Initialize the list to store vehicles with the make and model specified
+        List<Vehicle> vehicleMakeModel = new ArrayList<>();
+
+        //Iterate through the list by make and model
+        for (Vehicle vehicle : inventory) {
+            if (make.equalsIgnoreCase(vehicle.getVehicleMake()) && model.equalsIgnoreCase(vehicle.getVehicleModel()))
+                //add the vehicle to the list if its make and model is a match
+                vehicleMakeModel.add(vehicle);
+        }
+
+
+        Collections.sort(vehicleMakeModel, new Comparator<Vehicle>() {
+            @Override
+            public int compare(Vehicle v1, Vehicle v2) {
+                int yearComparison = Integer.compare(v1.getYear(), v2.getYear());
+                if (yearComparison != 0) {
+                    return yearComparison;
+                }
+
+                return Double.compare(v1.getPrice(), v2.getPrice());
+            }
+        });
+        return vehicleMakeModel;
     }
+
     public List<Vehicle> getVehiclesByYear(int min, int max){
-        // Initialize the list to store vehicles within the price range
+        // Initialize the list to store vehicles within the year range
         List<Vehicle> vehiclesByYear = new ArrayList<>();
 
         // Iterate through the sorted inventory list
@@ -94,7 +117,7 @@ public class Dealership {
         }
 
         // Sort the inventory list by year (ascending order)
-        Collections.sort(inventory, new Comparator<Vehicle>() {
+        Collections.sort(vehiclesByYear, new Comparator<Vehicle>() {
             @Override
             public int compare(Vehicle v1, Vehicle v2) {
                 return Integer.compare(v1.getYear(), v2.getYear());
@@ -107,7 +130,7 @@ public class Dealership {
         throw new UnsupportedOperationException();
     }
     public List<Vehicle> getVehiclesByMileage(int min, int max){
-        // Initialize the list to store vehicles within the price range
+        // Initialize the list to store vehicles within the mileage range
         List<Vehicle> vehiclesByMileage = new ArrayList<>();
 
         // Iterate through the sorted inventory list
@@ -119,7 +142,7 @@ public class Dealership {
         }
 
         // Sort the inventory list by year (ascending order)
-        Collections.sort(inventory, new Comparator<Vehicle>() {
+        Collections.sort(vehiclesByMileage, new Comparator<Vehicle>() {
             @Override
             public int compare(Vehicle v1, Vehicle v2) {
                 return Integer.compare(v1.getOdometer(), v2.getOdometer());
