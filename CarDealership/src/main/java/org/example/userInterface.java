@@ -5,9 +5,14 @@ public class userInterface {
    public userInterface(Dealership dealership){
       this.dealership = dealership;
    }
+   public void userInterface(){
+       throw new UnsupportedOperationException();
+   }
+
 
     public void displayOption(){
        throw new UnsupportedOperationException();
+       //Method to display options to the user
     }
 
     public void processGetByPriceRequest(){
