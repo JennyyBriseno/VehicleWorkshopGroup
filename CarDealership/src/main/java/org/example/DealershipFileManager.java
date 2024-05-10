@@ -1,8 +1,6 @@
 package org.example;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,13 +11,22 @@ public class DealershipFileManager {
 
         //Read the file
         public static Dealership getDealership(){
-            Dealership dealership = new Dealership("Great Motors Co.","3449 Runaway St", "469-822-7861");
+            String dealershipName = "";
+            String dealershipAddress = "";
+            String dealershipPhoneNumber = "";
 
             //Loop through vehicles in file
             try(FileReader fileReader = new FileReader(filePath)){
                 BufferedReader reader = new BufferedReader(fileReader);
                 String line;
+                //Reading first line
+                String firstLine = reader.readLine();
+                String[] dealershipInfo = firstLine.split("\\|");
+                dealershipName = dealershipInfo[0];
+                dealershipAddress = dealershipInfo[1];
+                dealershipPhoneNumber = dealershipInfo[2];
                 reader.readLine();
+                //reading the rest of file
                 while((line = reader.readLine()) != null) {
                     String[] data = line.split("\\|");
                     int vin = Integer.parseInt(data[0]);
@@ -39,11 +46,25 @@ public class DealershipFileManager {
                 System.out.println("File not found");
             }
 
+            Dealership dealership = new Dealership(dealershipName, dealershipAddress, dealershipPhoneNumber);
             dealership.setInventory(vehicles);
             return dealership;
         }
     //Write to the file
     public static void saveDealership(Dealership dealership){
-        throw new UnsupportedOperationException();
+            try(BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))){
+                writer.newLine();
+
+                writer.write(dealership.getName() + "|" + dealership.getAddress() + "|" + dealership.getPhone());
+                writer.newLine();
+                for(Vehicle vehicle: dealership.getInventory()){
+                    writer.write(vehicle.toString());
+                    writer.newLine();
+                }
+
+            }
+            catch(IOException ex){
+                System.out.println("Sorry, could not write to file!");
+            }
     }
 }
