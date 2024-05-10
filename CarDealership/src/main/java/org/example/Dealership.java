@@ -243,7 +243,9 @@ public class Dealership {
     }
 
     public void removeVehicle(Vehicle vehicle) {
-        throw new UnsupportedOperationException();
+        Dealership dealership = new Dealership(name, address, phone);
+        inventory.remove(vehicle);
+        DealershipFileManager.saveDealership(dealership);
     }
 }
 
