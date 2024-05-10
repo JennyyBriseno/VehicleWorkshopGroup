@@ -105,7 +105,7 @@ public class Dealership {
         return vehicleMakeModel;
     }
 
-    public List<Vehicle> getVehiclesByYear(int min, int max){
+    public List<Vehicle> getVehiclesByYear(int min, int max) {
         // Initialize the list to store vehicles within the year range
         List<Vehicle> vehiclesByYear = new ArrayList<>();
 
@@ -127,13 +127,14 @@ public class Dealership {
 
         return vehiclesByYear;
     }
-    public List<Vehicle> getVehiclesByColor(String color){
+
+    public List<Vehicle> getVehiclesByColor(String color) {
         //Initialize the list to store vehicles by the color specified
         List<Vehicle> vehiclesByColor = new ArrayList<>();
 
         //Iterate through the list
-        for(Vehicle vehicle : inventory){
-            if(color.equalsIgnoreCase(vehicle.getColor())){
+        for (Vehicle vehicle : inventory) {
+            if (color.equalsIgnoreCase(vehicle.getColor())) {
                 vehiclesByColor.add(vehicle);
 
             }
@@ -159,7 +160,8 @@ public class Dealership {
         });
         return vehiclesByColor;
     }
-    public List<Vehicle> getVehiclesByMileage(int min, int max){
+
+    public List<Vehicle> getVehiclesByMileage(int min, int max) {
         // Initialize the list to store vehicles within the mileage range
         List<Vehicle> vehiclesByMileage = new ArrayList<>();
 
@@ -181,11 +183,12 @@ public class Dealership {
 
         return vehiclesByMileage;
     }
-    public List<Vehicle> getVehiclesByType(String vehicleType){
+
+    public List<Vehicle> getVehiclesByType(String vehicleType) {
         ArrayList<Vehicle> vehiclesByType = new ArrayList<>();
 
-        for(Vehicle vehicle : inventory){
-            if(vehicleType.equalsIgnoreCase(vehicle.getVehicleType())){
+        for (Vehicle vehicle : inventory) {
+            if (vehicleType.equalsIgnoreCase(vehicle.getVehicleType())) {
                 vehiclesByType.add(vehicle);
             }
         }
@@ -193,28 +196,52 @@ public class Dealership {
             @Override
             public int compare(Vehicle v1, Vehicle v2) {
                 int makeComparison = v1.getVehicleMake().compareTo(v2.getVehicleMake());
-                if (makeComparison != 0){
+                if (makeComparison != 0) {
                     return makeComparison;
                 }
 
                 int modelComparison = v1.getVehicleModel().compareTo(v2.getVehicleModel());
-                if(modelComparison != 0){
+                if (modelComparison != 0) {
                     return modelComparison;
                 }
 
-                return Integer.compare(v1.getYear(),v2.getYear());
+                return Integer.compare(v1.getYear(), v2.getYear());
             }
         });
         return vehiclesByType;
     }
 
-    public List<Vehicle> getAllVehicles(){
+    public List<Vehicle> getAllVehicles() {
+        ArrayList<Vehicle> allVehicles = new ArrayList<>();
+
+        for (Vehicle vehicle : inventory) {
+            allVehicles.add(vehicle);
+        }
+        Collections.sort(allVehicles, new Comparator<Vehicle>() {
+            @Override
+            public int compare(Vehicle v1, Vehicle v2) {
+                int makeComparison = v1.getVehicleMake().compareTo(v2.getVehicleMake());
+                if (makeComparison != 0) {
+                    return makeComparison;
+                }
+
+                int modelComparison = v1.getVehicleModel().compareTo(v2.getVehicleModel());
+                if (modelComparison != 0) {
+                    return modelComparison;
+                }
+
+                return Integer.compare(v1.getYear(), v2.getYear());
+            }
+        });
+        return allVehicles;
+    }
+
+    public void addVehicle(Vehicle vehicle) {
         throw new UnsupportedOperationException();
     }
-    public void addVehicle(Vehicle vehicle){
-        throw new UnsupportedOperationException();
-    }
-    public void removeVehicle(Vehicle vehicle){
+
+    public void removeVehicle(Vehicle vehicle) {
         throw new UnsupportedOperationException();
     }
 }
+
