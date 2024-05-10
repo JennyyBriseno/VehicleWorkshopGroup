@@ -182,8 +182,32 @@ public class Dealership {
         return vehiclesByMileage;
     }
     public List<Vehicle> getVehiclesByType(String vehicleType){
-        throw new UnsupportedOperationException();
+        ArrayList<Vehicle> vehiclesByType = new ArrayList<>();
+
+        for(Vehicle vehicle : inventory){
+            if(vehicleType.equalsIgnoreCase(vehicle.getVehicleType())){
+                vehiclesByType.add(vehicle);
+            }
+        }
+        Collections.sort(vehiclesByType, new Comparator<Vehicle>() {
+            @Override
+            public int compare(Vehicle v1, Vehicle v2) {
+                int makeComparison = v1.getVehicleMake().compareTo(v2.getVehicleMake());
+                if (makeComparison != 0){
+                    return makeComparison;
+                }
+
+                int modelComparison = v1.getVehicleModel().compareTo(v2.getVehicleModel());
+                if(modelComparison != 0){
+                    return modelComparison;
+                }
+
+                return Integer.compare(v1.getYear(),v2.getYear());
+            }
+        });
+        return vehiclesByType;
     }
+
     public List<Vehicle> getAllVehicles(){
         throw new UnsupportedOperationException();
     }
