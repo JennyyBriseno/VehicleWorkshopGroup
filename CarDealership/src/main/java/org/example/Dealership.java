@@ -68,7 +68,7 @@ public class Dealership {
         }
 
         // Sort the inventory list by price (ascending order)
-        Collections.sort(inventory, new Comparator<Vehicle>() {
+        Collections.sort(vehiclesByPrice, new Comparator<Vehicle>() {
             @Override
             public int compare(Vehicle v1, Vehicle v2) {
                 return Double.compare(v1.getPrice(), v2.getPrice());
@@ -94,7 +94,7 @@ public class Dealership {
         }
 
         // Sort the inventory list by year (ascending order)
-        Collections.sort(inventory, new Comparator<Vehicle>() {
+        Collections.sort(vehiclesByYear, new Comparator<Vehicle>() {
             @Override
             public int compare(Vehicle v1, Vehicle v2) {
                 return Integer.compare(v1.getYear(), v2.getYear());
@@ -148,7 +148,7 @@ public class Dealership {
         }
 
         // Sort the inventory list by year (ascending order)
-        Collections.sort(inventory, new Comparator<Vehicle>() {
+        Collections.sort(vehiclesByMileage, new Comparator<Vehicle>() {
             @Override
             public int compare(Vehicle v1, Vehicle v2) {
                 return Integer.compare(v1.getOdometer(), v2.getOdometer());
