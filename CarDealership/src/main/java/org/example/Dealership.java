@@ -104,7 +104,36 @@ public class Dealership {
         return vehiclesByYear;
     }
     public List<Vehicle> getVehiclesByColor(String color){
-        throw new UnsupportedOperationException();
+        //Initialize the list to store vehicles by the color specified
+        List<Vehicle> vehiclesByColor = new ArrayList<>();
+
+        //Iterate through the list
+        for(Vehicle vehicle : inventory){
+            if(color.equalsIgnoreCase(vehicle.getColor())){
+                vehiclesByColor.add(vehicle);
+
+            }
+        }
+        Collections.sort(vehiclesByColor, new Comparator<Vehicle>() {
+            @Override
+            public int compare(Vehicle v1, Vehicle v2) {
+                // First compare by make
+                int makeComparison = v1.getVehicleMake().compareTo(v2.getVehicleMake());
+                if (makeComparison != 0) {
+                    return makeComparison; // If makes are different, return the comparison result
+                }
+
+                // If makes are the same, compare by model
+                int modelComparison = v1.getVehicleModel().compareTo(v2.getVehicleModel());
+                if (modelComparison != 0) {
+                    return modelComparison; // If models are different, return the comparison result
+                }
+
+                // If models are the same, compare by price
+                return Double.compare(v1.getPrice(), v2.getPrice());
+            }
+        });
+        return vehiclesByColor;
     }
     public List<Vehicle> getVehiclesByMileage(int min, int max){
         // Initialize the list to store vehicles within the price range
