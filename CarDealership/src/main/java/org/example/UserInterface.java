@@ -84,9 +84,15 @@ public class UserInterface {
     }
 
     public static void display(List<Vehicle> vehicles) {
+        int counter = 0;
         for (Vehicle vehicle : vehicles) {
             System.out.printf("Vin: %s|Year: %d|Make: %s|Model: %s|Type: %s|Color: %s|Odometer: %d|Price: %.2f\n", vehicle.getVin(), vehicle.getYear(), vehicle.getVehicleMake(), vehicle.getVehicleModel(), vehicle.getVehicleType(), vehicle.getColor(), vehicle.getOdometer(), vehicle.getPrice());
+            counter ++;
         }
+        if(counter == 0){
+            System.out.println("Sorry, no vehicles were found :( ");
+        }
+        System.out.printf("This is the total amount of vehicles displayed: %d\n",counter);
     }
 
     //method for price
@@ -201,8 +207,7 @@ public class UserInterface {
 
     //method for displaying all vehicles
     public static void processGetAllVehicleRequest(){
-       throw new UnsupportedOperationException();
-       //Method to process request to list all vehicle
+    display(dealership.getAllVehicles());
     }
 
     //method for adding vehicles
