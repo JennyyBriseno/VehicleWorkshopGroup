@@ -16,8 +16,7 @@ public class DealershipFileManager {
             String dealershipPhoneNumber = "";
 
             //Loop through vehicles in file
-            try(FileReader fileReader = new FileReader(filePath)){
-                BufferedReader reader = new BufferedReader(fileReader);
+            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
                 String line;
                 //Reading first line
                 String firstLine = reader.readLine();
