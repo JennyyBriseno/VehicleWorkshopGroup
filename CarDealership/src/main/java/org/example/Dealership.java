@@ -55,6 +55,7 @@ public class Dealership {
     }
 
     //methods
+    // sorts array list by a price range then sorts them from min to max price
     public List<Vehicle> getVehiclesByPrice(double min, double max) {
         // Initialize the list to store vehicles within the price range
         List<Vehicle> vehiclesByPrice = new ArrayList<>();
@@ -79,6 +80,7 @@ public class Dealership {
         return vehiclesByPrice;
     }
 
+    // sorts array list by make and model sorts them from min to max price
     public List<Vehicle> getVehiclesByMakeModel(String make, String model) {
         // Initialize the list to store vehicles with the make and model specified
         List<Vehicle> vehicleMakeModel = new ArrayList<>();
@@ -105,6 +107,7 @@ public class Dealership {
         return vehicleMakeModel;
     }
 
+    // sorts array list by a year range then sorts them from min to max price
     public List<Vehicle> getVehiclesByYear(int min, int max) {
         // Initialize the list to store vehicles within the year range
         List<Vehicle> vehiclesByYear = new ArrayList<>();
@@ -128,6 +131,7 @@ public class Dealership {
         return vehiclesByYear;
     }
 
+    // sorts array list by a color then sorts them by make, model then price from min to max price
     public List<Vehicle> getVehiclesByColor(String color) {
         //Initialize the list to store vehicles by the color specified
         List<Vehicle> vehiclesByColor = new ArrayList<>();
@@ -161,6 +165,7 @@ public class Dealership {
         return vehiclesByColor;
     }
 
+    // sorts array list by a mileage range then sorts them from min to max mileage
     public List<Vehicle> getVehiclesByMileage(int min, int max) {
         // Initialize the list to store vehicles within the mileage range
         List<Vehicle> vehiclesByMileage = new ArrayList<>();
@@ -184,6 +189,7 @@ public class Dealership {
         return vehiclesByMileage;
     }
 
+    // sorts array list by a vehicle type and sorts them by make, model then year
     public List<Vehicle> getVehiclesByType(String vehicleType) {
         ArrayList<Vehicle> vehiclesByType = new ArrayList<>();
 
@@ -211,6 +217,7 @@ public class Dealership {
         return vehiclesByType;
     }
 
+    //gets all vehicles
     public List<Vehicle> getAllVehicles() {
         ArrayList<Vehicle> allVehicles = new ArrayList<>();
 
@@ -236,18 +243,19 @@ public class Dealership {
         return allVehicles;
     }
 
+    //adds a vehicle to the inventory array then rewrites the file
     public void addVehicle(Vehicle vehicle) {
         inventory.add(vehicle);
         DealershipFileManager.saveDealership(UserInterface.getDealership());
     }
 
+    //removes a vehicle from the inventory array then rewrites the file
     public void removeVehicle(int vin) {
-        for(Vehicle vehicle : inventory){
-            if(vin == vehicle.getVin()){
+        for (Vehicle vehicle : inventory) {
+            if (vin == vehicle.getVin()) {
                 inventory.remove(vehicle);
                 break;
-            }
-            else{
+            } else {
                 System.out.println("Vehicle could not be found :( ");
             }
         }

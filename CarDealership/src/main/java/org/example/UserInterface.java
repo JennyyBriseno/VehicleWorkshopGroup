@@ -1,18 +1,23 @@
 package org.example;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class UserInterface {
+    //properties
     private static final Scanner scanner = new Scanner(System.in);
     private static Dealership dealership;
 
+    //getter
     public static Dealership getDealership() {
         return dealership;
     }
 
+    //Programs main screen
     public static void userInterface() {
         System.out.println("Hello and Welcome to your local Dealership!");
+        //instantiate the dealership
         dealership = DealershipFileManager.getDealership();
         while (true) {
             try {
@@ -27,7 +32,7 @@ public class UserInterface {
                         7)Display all vehicles!
                         8)Add a vehicle
                         9)Remove a vehicle
-                        """);
+                        0)Quit""");
                 int choice = Integer.parseInt(scanner.nextLine());
                 switch (choice) {
                     case 1:
@@ -82,17 +87,17 @@ public class UserInterface {
             }
         }
     }
-
+    //method to display the sorted array lists of vehicles
     public static void display(List<Vehicle> vehicles) {
         int counter = 0;
         for (Vehicle vehicle : vehicles) {
             System.out.printf("Vin: %s|Year: %d|Make: %s|Model: %s|Type: %s|Color: %s|Odometer: %d|Price: %.2f\n", vehicle.getVin(), vehicle.getYear(), vehicle.getVehicleMake(), vehicle.getVehicleModel(), vehicle.getVehicleType(), vehicle.getColor(), vehicle.getOdometer(), vehicle.getPrice());
-            counter ++;
+            counter++;
         }
-        if(counter == 0){
+        if (counter == 0) {
             System.out.println("Sorry, no vehicles were found :( ");
         }
-        System.out.printf("This is the total amount of vehicles displayed: %d\n",counter);
+        System.out.printf("This is the total amount of vehicles displayed: %d\n", counter);
     }
 
     //method for price
@@ -134,16 +139,16 @@ public class UserInterface {
         }
     }
 
-        //Method to process request to find vehicles by year range
-    public static void processGetByYearRequest(){
+    //Method to process request to find vehicles by year range
+    public static void processGetByYearRequest() {
         while (true) {
             try {
                 System.out.print("What would be the min year? ");
-                int minYear = scanner.nextInt();
+                int minYear = Integer.parseInt(scanner.nextLine());
                 System.out.print("What would be the max year? ");
-                int maxYear = scanner.nextInt();
+                int maxYear = Integer.parseInt(scanner.nextLine());
 
-                List<Vehicle> vehiclesByYear = dealership.getVehiclesByYear(minYear,maxYear);
+                List<Vehicle> vehiclesByYear = dealership.getVehiclesByYear(minYear, maxYear);
 
                 display(vehiclesByYear);
                 break;
@@ -154,7 +159,7 @@ public class UserInterface {
     }
 
     //method for color
-    public static void processGetByColorRequest(){
+    public static void processGetByColorRequest() {
         while (true) {
             try {
                 System.out.println("What color would you like to sort by? ");
@@ -171,7 +176,7 @@ public class UserInterface {
     }
 
     //method for mileage
-    public static void processGetByMileageRequest(){
+    public static void processGetByMileageRequest() {
         while (true) {
             try {
                 System.out.print("What would be the min mileage? ");
@@ -179,7 +184,7 @@ public class UserInterface {
                 System.out.print("What would be the max mileage? ");
                 int maxMileage = Integer.parseInt(scanner.nextLine());
 
-                List<Vehicle> vehiclesByMileage = dealership.getVehiclesByMileage(minMileage,maxMileage);
+                List<Vehicle> vehiclesByMileage = dealership.getVehiclesByMileage(minMileage, maxMileage);
                 display(vehiclesByMileage);
                 break;
             } catch (NumberFormatException exception) {
@@ -189,7 +194,7 @@ public class UserInterface {
     }
 
     //method for vehicle type
-    public static void processGetByVehicleTypeRequest(){
+    public static void processGetByVehicleTypeRequest() {
         while (true) {
             try {
                 System.out.print("What would be the type of vehicle you are looking for? ");
@@ -206,8 +211,8 @@ public class UserInterface {
     }
 
     //method for displaying all vehicles
-    public static void processGetAllVehicleRequest(){
-    display(dealership.getAllVehicles());
+    public static void processGetAllVehicleRequest() {
+        display(dealership.getAllVehicles());
     }
 
     //method for adding vehicles
@@ -248,7 +253,7 @@ public class UserInterface {
     }
 
     //method for removing vehicles
-    public static void processRemoveVehicle(){
+    public static void processRemoveVehicle() {
         while (true) {
             try {
                 System.out.print("Please enter the vin: ");
