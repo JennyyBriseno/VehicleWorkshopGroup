@@ -42,7 +42,10 @@ public class DealershipFileManager {
                 }
             }
             catch (IOException e){
-                System.out.println("File not found");
+                System.out.println("File not found :( ");
+            }
+            catch (Exception exception){
+                System.out.println("File could not be read :( ");
             }
 
             Dealership dealership = new Dealership(dealershipName, dealershipAddress, dealershipPhoneNumber);
@@ -52,7 +55,6 @@ public class DealershipFileManager {
     //Write to the file
     public static void saveDealership(Dealership dealership){
             try(BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))){
-                writer.newLine();
 
                 writer.write(dealership.getName() + "|" + dealership.getAddress() + "|" + dealership.getPhone());
                 writer.newLine();
@@ -60,7 +62,6 @@ public class DealershipFileManager {
                     writer.write(vehicle.toString());
                     writer.newLine();
                 }
-
             }
             catch(IOException ex){
                 System.out.println("Sorry, could not write to file!");
