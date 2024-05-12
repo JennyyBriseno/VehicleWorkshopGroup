@@ -166,14 +166,37 @@ public class UserInterface {
 
     //method for mileage
     public static void processGetByMileageRequest(){
-       throw new UnsupportedOperationException();
-       //Method to process request to find vehicles by mileage range
+        while (true) {
+            try {
+                System.out.print("What would be the min mileage? ");
+                int minMileage = Integer.parseInt(scanner.nextLine());
+                System.out.print("What would be the max mileage? ");
+                int maxMileage = Integer.parseInt(scanner.nextLine());
+
+                List<Vehicle> vehiclesByMileage = dealership.getVehiclesByMileage(minMileage,maxMileage);
+                display(vehiclesByMileage);
+                break;
+            } catch (NumberFormatException exception) {
+                System.out.println("----------⚠ Please enter the mileage in number format! ⚠----------");
+            }
+        }
     }
 
     //method for vehicle type
     public static void processGetByVehicleTypeRequest(){
-       throw new UnsupportedOperationException();
-       //Method to process request to find vehicles by vehicle type
+        while (true) {
+            try {
+                System.out.print("What would be the type of vehicle you are looking for? ");
+                String vehicleType = scanner.nextLine();
+
+                List<Vehicle> vehiclesByType = dealership.getVehiclesByType(vehicleType);
+
+                display(vehiclesByType);
+                break;
+            } catch (Exception exception) {
+                System.out.println("----------⚠ Please try again! ⚠----------");
+            }
+        }
     }
 
     //method for displaying all vehicles
