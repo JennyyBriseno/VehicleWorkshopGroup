@@ -128,16 +128,40 @@ public class UserInterface {
         }
     }
 
-    //method for year
+        //Method to process request to find vehicles by year range
     public static void processGetByYearRequest(){
-       throw new UnsupportedOperationException();
-       //Method to process request to find vehicles by year range
+        while (true) {
+            try {
+                System.out.print("What would be the min year? ");
+                int minYear = scanner.nextInt();
+                System.out.print("What would be the max year? ");
+                int maxYear = scanner.nextInt();
+
+                List<Vehicle> vehiclesByYear = dealership.getVehiclesByYear(minYear,maxYear);
+
+                display(vehiclesByYear);
+                break;
+            } catch (NumberFormatException exception) {
+                System.out.println("----------⚠ Please enter year in number format! ⚠----------");
+            }
+        }
     }
 
     //method for color
     public static void processGetByColorRequest(){
-       throw new UnsupportedOperationException();
-       //Method to process request to find vehicles by color
+        while (true) {
+            try {
+                System.out.println("What color would you like to sort by? ");
+                String vehicleColor = scanner.nextLine();
+
+                List<Vehicle> vehiclesByColor = dealership.getVehiclesByColor(vehicleColor);
+
+                display(vehiclesByColor);
+                break;
+            } catch (Exception exception) {
+                System.out.println("----------⚠ Please try again! ⚠----------");
+            }
+        }
     }
 
     //method for mileage
