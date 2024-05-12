@@ -68,7 +68,7 @@ public class Dealership {
             }
         }
 
-        // Sort the inventory list by price (ascending order)
+//         Sort the inventory list by price (ascending order)
         Collections.sort(vehiclesByPrice, new Comparator<Vehicle>() {
             @Override
             public int compare(Vehicle v1, Vehicle v2) {

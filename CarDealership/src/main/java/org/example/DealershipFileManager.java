@@ -25,7 +25,6 @@ public class DealershipFileManager {
                 dealershipName = dealershipInfo[0];
                 dealershipAddress = dealershipInfo[1];
                 dealershipPhoneNumber = dealershipInfo[2];
-                reader.readLine();
                 //reading the rest of file
                 while((line = reader.readLine()) != null) {
                     String[] data = line.split("\\|");
