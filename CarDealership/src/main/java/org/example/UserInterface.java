@@ -63,7 +63,7 @@ public class UserInterface {
                         processAddVehicleRequest();
                         break;
                     case 9:
-                        System.out.println("Please answer the following questions: ");
+                        System.out.println("Please enter the vehicle vin you would like to remove: ");
                         processRemoveVehicle();
                         break;
                     case 0:
@@ -211,15 +211,54 @@ public class UserInterface {
     }
 
     //method for adding vehicles
-    public static void processAddVehicleRequest(){
-       throw new UnsupportedOperationException();
-       //Method to process request to add a vehicle
+    public static void processAddVehicleRequest() {
+        while (true) {
+            try {
+                System.out.print("Please enter the vin: ");
+                int vehicleVin = Integer.parseInt(scanner.nextLine());
+
+                System.out.print("Please enter the year? ");
+                int vehicleYear = Integer.parseInt(scanner.nextLine());
+
+                System.out.print("Please enter the vehicle make: ");
+                String vehicleMake = scanner.nextLine();
+
+                System.out.print("Please enter the vehicle model: ");
+                String vehicleModel = scanner.nextLine();
+
+                System.out.print("Please enter the vehicle type: ");
+                String vehicleType = scanner.nextLine();
+
+                System.out.print("Please enter the vehicle color: ");
+                String vehicleColor = scanner.nextLine();
+
+                System.out.print("Please enter the vehicle's odometer: ");
+                int vehicleOdometer = Integer.parseInt(scanner.nextLine());
+
+                System.out.print("Please enter the vehicle price: ");
+                double vehiclePrice = Double.parseDouble(scanner.nextLine());
+
+                Vehicle addedVehicle = new Vehicle(vehicleVin, vehicleYear, vehicleModel, vehicleMake, vehicleType, vehicleColor, vehicleOdometer, vehiclePrice);
+                dealership.addVehicle(addedVehicle);
+                break;
+            } catch (NumberFormatException exception) {
+                System.out.println("----------⚠ Please enter valid information! ⚠----------");
+            }
+        }
     }
 
     //method for removing vehicles
     public static void processRemoveVehicle(){
-       throw new UnsupportedOperationException();
-       //Method to process request to remove a vehicle
-    }
+        while (true) {
+            try {
+                System.out.print("Please enter the vin: ");
+                int vehicleVin = Integer.parseInt(scanner.nextLine());
 
+                dealership.removeVehicle(vehicleVin);
+                break;
+            } catch (NumberFormatException exception) {
+                System.out.println("----------⚠ Please enter a number! ⚠----------");
+            }
+        }
+    }
 }

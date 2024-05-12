@@ -237,15 +237,21 @@ public class Dealership {
     }
 
     public void addVehicle(Vehicle vehicle) {
-        Dealership dealership = new Dealership(name, address, phone);
         inventory.add(vehicle);
-        DealershipFileManager.saveDealership(dealership);
+        DealershipFileManager.saveDealership(UserInterface.getDealership());
     }
 
-    public void removeVehicle(Vehicle vehicle) {
-        Dealership dealership = new Dealership(name, address, phone);
-        inventory.remove(vehicle);
-        DealershipFileManager.saveDealership(dealership);
+    public void removeVehicle(int vin) {
+        for(Vehicle vehicle : inventory){
+            if(vin == vehicle.getVin()){
+                inventory.remove(vehicle);
+                break;
+            }
+            else{
+                System.out.println("Vehicle could not be found :( ");
+            }
+        }
+        DealershipFileManager.saveDealership(UserInterface.getDealership());
     }
 }
 
