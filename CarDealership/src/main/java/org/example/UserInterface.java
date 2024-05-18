@@ -1,5 +1,6 @@
 package org.example;
 
+import java.nio.channels.ScatteringByteChannel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -32,6 +33,7 @@ public class UserInterface {
                         7)Display all vehicles!
                         8)Add a vehicle
                         9)Remove a vehicle
+                        10)Purchase a car
                         0)Quit""");
                 int choice = Integer.parseInt(scanner.nextLine());
                 switch (choice) {
@@ -78,6 +80,10 @@ public class UserInterface {
                                 """);
                         System.exit(0);
                         break;
+                    case 10:
+                        System.out.println("Please answer the following questions: ");
+                        purchaseAVehicle();
+                        break;
                     default:
                         System.out.println("----------⚠ Sorry that is not an option! Try again! ⚠----------");
                         break;
@@ -87,6 +93,7 @@ public class UserInterface {
             }
         }
     }
+
     //method to display the sorted array lists of vehicles
     public static void display(List<Vehicle> vehicles) {
         int counter = 0;
@@ -262,6 +269,85 @@ public class UserInterface {
                 dealership.removeVehicle(vehicleVin);
                 break;
             } catch (NumberFormatException exception) {
+                System.out.println("----------⚠ Please enter a number! ⚠----------");
+            }
+        }
+    }
+
+    public static void purchaseAVehicle() {
+        while (true) {
+            try {
+                System.out.println("""
+                        Please select an option for contract !
+                        1)Buy a vehicle
+                        2)Lease a vehicle
+                        """);
+                int choice = Integer.parseInt(scanner.nextLine());
+                switch (choice) {
+                    case 1:
+                        buyAVehicle();
+                        break;
+                    case 2:
+                        leaseAVehicle();
+                        break;
+                }
+            } catch (NumberFormatException exception) {
+                System.out.println("----------⚠ Please enter your option in number format! ⚠----------");
+            }
+        }
+    }
+
+    public static void buyAVehicle() {
+        while (true) {
+            try {
+                System.out.print("Please enter the date MM/DD/YYYY: ");
+                String date = scanner.nextLine();
+                System.out.print("Enter your name: ");
+                String name = scanner.nextLine();
+                System.out.print("Please enter a valid email address: ");
+                String emailAddress = scanner.nextLine();
+                boolean finance = true;
+                System.out.print("Please enter the vin of the vehicle you would like to purchase: ");
+                int vehicleVin = Integer.parseInt(scanner.nextLine());
+                System.out.println("Would you be interested in the finance option: ");
+                String financeOption = scanner.nextLine();
+                if (financeOption.equalsIgnoreCase("No")) {
+                    finance = false;
+                }
+                Vehicle vehicle = dealership.vehicleIsAvailable(vehicleVin);
+                Contract contract = new SalesContract(date, name, emailAddress, vehicle, finance);
+                ContractFileManager.writeToContractFile(contract);
+                dealership.removeVehicle(vehicleVin);
+                userInterface();
+                break;
+            } catch (NumberFormatException exception) {
+                System.out.println("----------⚠ Please enter a number! ⚠----------");
+            }
+        }
+    }
+
+    public static void leaseAVehicle() {
+        while (true) {
+            try {
+                System.out.print("Please enter the date MM/DD/YYYY: ");
+                String date = scanner.nextLine();
+
+                System.out.print("Enter your name: ");
+                String name = scanner.nextLine();
+
+                System.out.print("Please enter a valid email address: ");
+                String emailAddress = scanner.nextLine();
+
+                System.out.print("Please enter the vin of the vehicle you would like to purchase: ");
+                int vehicleVin = Integer.parseInt(scanner.nextLine());
+
+                Vehicle vehicle = dealership.vehicleIsAvailable(vehicleVin);
+                Contract contract = new LeaseContract(date, name, emailAddress, vehicle);
+                ContractFileManager.writeToContractFile(contract);
+                dealership.removeVehicle(vehicleVin);
+                userInterface();
+                break;
+            } catch (NumberFormatException ex) {
                 System.out.println("----------⚠ Please enter a number! ⚠----------");
             }
         }

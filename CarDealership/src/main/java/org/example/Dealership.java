@@ -251,15 +251,27 @@ public class Dealership {
 
     //removes a vehicle from the inventory array then rewrites the file
     public void removeVehicle(int vin) {
+        int counter = 0;
         for (Vehicle vehicle : inventory) {
             if (vin == vehicle.getVin()) {
                 inventory.remove(vehicle);
+                DealershipFileManager.saveDealership(UserInterface.getDealership());
+                counter++;
                 break;
-            } else {
-                System.out.println("Vehicle could not be found :( ");
             }
         }
-        DealershipFileManager.saveDealership(UserInterface.getDealership());
+        if (counter == 0) {
+            System.out.println("Vehicle could not be found :( ");
+        }
+    }
+
+    public Vehicle vehicleIsAvailable(int Vin) {
+        for (Vehicle vehicleAvailable : inventory) {
+            if (vehicleAvailable.getVin() == Vin) {
+                return vehicleAvailable;
+            }
+        }
+        return null;
     }
 }
 
