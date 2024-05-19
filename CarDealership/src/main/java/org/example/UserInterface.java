@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class UserInterface {
     //properties
     private static final Scanner scanner = new Scanner(System.in);
+
     private static Dealership dealership;
 
     //getter
@@ -286,9 +287,11 @@ public class UserInterface {
                 switch (choice) {
                     case 1:
                         buyAVehicle();
+                        userInterface();
                         break;
                     case 2:
                         leaseAVehicle();
+                        userInterface();
                         break;
                 }
             } catch (NumberFormatException exception) {
@@ -314,11 +317,11 @@ public class UserInterface {
                 if (financeOption.equalsIgnoreCase("No")) {
                     finance = false;
                 }
+
                 Vehicle vehicle = dealership.vehicleIsAvailable(vehicleVin);
                 Contract contract = new SalesContract(date, name, emailAddress, vehicle, finance);
                 ContractFileManager.writeToContractFile(contract);
                 dealership.removeVehicle(vehicleVin);
-                userInterface();
                 break;
             } catch (NumberFormatException exception) {
                 System.out.println("----------⚠ Please enter a number! ⚠----------");
@@ -345,7 +348,6 @@ public class UserInterface {
                 Contract contract = new LeaseContract(date, name, emailAddress, vehicle);
                 ContractFileManager.writeToContractFile(contract);
                 dealership.removeVehicle(vehicleVin);
-                userInterface();
                 break;
             } catch (NumberFormatException ex) {
                 System.out.println("----------⚠ Please enter a number! ⚠----------");

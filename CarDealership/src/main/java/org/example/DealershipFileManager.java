@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 public class DealershipFileManager {
         private static final String filePath = "src/main/resources/inventory.csv";
-        private static final Scanner scanner = new Scanner(System.in);
         private static final ArrayList<Vehicle> vehicles = new ArrayList<>();
 
         //Read the file

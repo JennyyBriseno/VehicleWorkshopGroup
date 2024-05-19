@@ -25,7 +25,6 @@ public class ContractFileManager {
                         contract.getTotalPrice(),
                         (salesContract.isFinanceOption() ? "YES" : "No"),
                         contract.getMonthlyPayment()) + "\n");
-                writer.newLine();
             } else if (contract instanceof LeaseContract) {
                 LeaseContract leaseContract = (LeaseContract) contract;
                 writer.write(String.format("LEASE|%s|%s|%s|%s|%.2f|%.2f|%.2f|%.2f",
@@ -36,8 +35,7 @@ public class ContractFileManager {
                     leaseContract.getExpectedEndingValue(),
                     leaseContract.getLeaseFee(),
                     contract.getTotalPrice(),
-                    contract.getMonthlyPayment()));
-                writer.newLine();
+                    contract.getMonthlyPayment()) + "\n");
             }
         } catch (IOException ex) {
             System.out.println("----------⚠ FILE COULD NOT BE WRITTEN TO ⚠----------");
