@@ -9,18 +9,11 @@ public class UserInterface {
     //properties
     private static final Scanner scanner = new Scanner(System.in);
 
-    private static Dealership dealership;
-
-    //getter
-    public static Dealership getDealership() {
-        return dealership;
-    }
+    private static Dealership dealership = new Dealership();
 
     //Programs main screen
     public static void userInterface() {
         System.out.println("Hello and Welcome to your local Dealership!");
-        //instantiate the dealership
-        dealership = DealershipFileManager.getDealership();
         while (true) {
             try {
                 System.out.println("""
@@ -99,7 +92,7 @@ public class UserInterface {
     public static void display(List<Vehicle> vehicles) {
         int counter = 0;
         for (Vehicle vehicle : vehicles) {
-            System.out.printf("Vin: %s|Year: %d|Make: %s|Model: %s|Type: %s|Color: %s|Odometer: %d|Price: %.2f\n", vehicle.getVin(), vehicle.getYear(), vehicle.getVehicleMake(), vehicle.getVehicleModel(), vehicle.getVehicleType(), vehicle.getColor(), vehicle.getOdometer(), vehicle.getPrice());
+            System.out.printf("Vin: %s | Year: %d | Make: %s | Model: %s | Type: %s | Color: %s | Odometer: %d | Price: %.2f | SOLD: %b\n", vehicle.getVin(), vehicle.getYear(), vehicle.getVehicleMake(), vehicle.getVehicleModel(), vehicle.getVehicleType(), vehicle.getColor(), vehicle.getOdometer(), vehicle.getPrice(), vehicle.isSold());
             counter++;
         }
         if (counter == 0) {
@@ -252,6 +245,7 @@ public class UserInterface {
                 double vehiclePrice = Double.parseDouble(scanner.nextLine());
 
                 Vehicle addedVehicle = new Vehicle(vehicleVin, vehicleYear, vehicleModel, vehicleMake, vehicleType, vehicleColor, vehicleOdometer, vehiclePrice);
+                //dealership.addVehicle(vehicleVin, vehicleYear, vehicleModel, vehicleMake, vehicleType, vehicleColor, vehicleOdometer, vehiclePrice);
                 dealership.addVehicle(addedVehicle);
                 break;
             } catch (NumberFormatException exception) {
@@ -303,7 +297,7 @@ public class UserInterface {
     public static void buyAVehicle() {
         while (true) {
             try {
-                System.out.print("Please enter the date MM/DD/YYYY: ");
+                System.out.print("Please enter the date YYYY/MM/DD: ");
                 String date = scanner.nextLine();
                 System.out.print("Enter your name: ");
                 String name = scanner.nextLine();
@@ -317,12 +311,15 @@ public class UserInterface {
                 if (financeOption.equalsIgnoreCase("No")) {
                     finance = false;
                 }
-
-                Vehicle vehicle = dealership.vehicleIsAvailable(vehicleVin);
-                Contract contract = new SalesContract(date, name, emailAddress, vehicle, finance);
-                ContractFileManager.writeToContractFile(contract);
-                dealership.removeVehicle(vehicleVin);
-                break;
+                List<Vehicle> vehicle = dealership.vr.isVehicleAvailable(vehicleVin);
+                if(vehicle.isEmpty()) {
+                    System.out.println("Vehicle is not available, please try again! ");
+                }
+                else{
+                    SalesContract contract = new SalesContract(date, name, emailAddress, vehicle.get(0), finance);
+                    dealership.vr.addSalesContract(date, contract);
+                    break;
+                }
             } catch (NumberFormatException exception) {
                 System.out.println("----------⚠ Please enter a number! ⚠----------");
             }
@@ -332,7 +329,7 @@ public class UserInterface {
     public static void leaseAVehicle() {
         while (true) {
             try {
-                System.out.print("Please enter the date MM/DD/YYYY: ");
+                System.out.print("Please enter the date YYYY/MM/DD: ");
                 String date = scanner.nextLine();
 
                 System.out.print("Enter your name: ");
@@ -344,11 +341,15 @@ public class UserInterface {
                 System.out.print("Please enter the vin of the vehicle you would like to purchase: ");
                 int vehicleVin = Integer.parseInt(scanner.nextLine());
 
-                Vehicle vehicle = dealership.vehicleIsAvailable(vehicleVin);
-                Contract contract = new LeaseContract(date, name, emailAddress, vehicle);
-                ContractFileManager.writeToContractFile(contract);
-                dealership.removeVehicle(vehicleVin);
-                break;
+                List<Vehicle> vehicle = dealership.vr.isVehicleAvailable(vehicleVin);
+                if(vehicle.isEmpty()) {
+                    System.out.println("Vehicle is not available, please try again! ");
+                }
+                else{
+                    LeaseContract leaseContract = new LeaseContract(date, name, emailAddress, vehicle.get(0));
+                    dealership.vr.addLeaseContract(date, leaseContract);
+                    break;
+                }
             } catch (NumberFormatException ex) {
                 System.out.println("----------⚠ Please enter a number! ⚠----------");
             }
